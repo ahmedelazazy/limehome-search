@@ -17,9 +17,9 @@ export default ({ hotel }) => {
           </div>
         </div>
       </div>
-      <button className="btn">
-        <Link to={`/book/${hotel.id}`}>Book</Link>
-      </button>
+      <Link className="btn" to={`/book/${hotel.id}`}>
+        Book
+      </Link>
     </div>
   );
 };

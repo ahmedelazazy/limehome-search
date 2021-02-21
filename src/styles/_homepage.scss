@@ -1,0 +1,108 @@
+.Homepage {
+  position: relative;
+
+  .Map {
+    height: calc(100vh);
+    width: 100%;
+
+    .MapMarker {
+      border-radius: 100%;
+      // box-shadow: 1px 1px 10px 0px rgba(50, 50, 50, 0.75);
+      transform: translate(-50%, -50%);
+      position: "absolute";
+
+      &.active {
+        z-index: 99999;
+      }
+    }
+  }
+
+  .HotelsList {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 1rem;
+    width: 600px;
+    max-width: 100%;
+
+    .HotelItem {
+      padding: 2rem;
+      margin: 0 1rem;
+      background: #fff;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .cols {
+        display: flex;
+        height: 100%;
+
+        .col:nth-child(1) {
+          width: 40%;
+        }
+        .col:nth-child(2) {
+          width: 55%;
+          margin-left: 5%;
+        }
+
+        .image-container {
+          width: 100%;
+          background-repeat: no-repeat, repeat;
+          background-size: cover;
+          background-position: center center;
+        }
+
+        h2 {
+          font-size: 1.8rem;
+          font-weight: bold;
+          margin-bottom: 1rem;
+          color: #666;
+          line-height: 1.2;
+        }
+        h5 {
+          font-size: 1.4rem;
+          text-transform: uppercase;
+          margin: 0;
+          color: #999;
+          font-weight: bold;
+          line-height: 1.2;
+        }
+        h3 {
+          font-size: 3rem;
+          font-weight: bold;
+          margin: 0;
+        }
+        small {
+          font-size: 1.4rem;
+          color: #999;
+        }
+
+        .col:nth-of-type(2) {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+      }
+
+      button {
+        font-weight: bold;
+        margin-top: 2rem;
+      }
+    }
+
+    .slick-track {
+      display: flex !important;
+
+      .slick-slide {
+        width: calc(600px * 0.9);
+        max-width: 90vw;
+        height: inherit !important;
+
+        > div {
+          height: 100%;
+        }
+      }
+    }
+  }
+}

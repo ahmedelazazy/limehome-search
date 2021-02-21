@@ -1,0 +1,52 @@
+$error: rgb(158, 8, 8);
+$accent: #f7941d;
+$shade1: #6e6d6e;
+$width: 600px;
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  outline: none;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 10px;
+  line-height: 1.5;
+  min-width: 320px;
+}
+a,
+a:visited,
+a:focus,
+a:hover {
+  color: inherit;
+}
+
+.btn {
+  width: 100%;
+  display: block;
+  background: $accent;
+  color: #fff;
+  font-size: 1.6rem;
+  text-align: center;
+  border: none;
+  padding: 1rem 2rem;
+}
+
+.btn:focus,
+.btn:hover {
+  opacity: 0.95;
+  cursor: pointer;
+  box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 0.75);
+}
+
+.container {
+  width: $width;
+  max-width: 100%;
+  margin: auto;
+}

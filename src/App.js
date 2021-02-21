@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "../node_modules/slick-carousel/slick/slick-theme.css";
+import "../node_modules/slick-carousel/slick/slick.css";
+import Header from "./components/layout/Header";
+import About from "./pages/About";
+import Booking from "./pages/Booking";
+import Homepage from "./pages/Homepage";
+import "./styles/App.scss";
 
-function App() {
+export default () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Header />
+
+        <Switch>
+          <Route path="/" exact={true} component={Homepage} />
+          <Route path="/about" component={About} />
+          <Route path="/book/:id" component={Booking} />
+        </Switch>
+      </Router>
     </div>
   );
-}
-
-export default App;
+};

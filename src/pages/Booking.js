@@ -163,7 +163,9 @@ export default ({ match }) => {
               <h3 data-testid="booking-info-label">Booking Info</h3>
 
               <div className={`control ${errors["checkIn"] ? "error" : ""}`}>
-                <label htmlFor="checkIn">Check In</label>
+                <label className="required" htmlFor="checkIn">
+                  Check In
+                </label>
                 <input
                   type="date"
                   id="checkIn"
@@ -175,7 +177,9 @@ export default ({ match }) => {
               </div>
 
               <div className={`control ${errors["checkOut"] ? "error" : ""}`}>
-                <label htmlFor="checkOut">Check Out</label>
+                <label className="required" htmlFor="checkOut">
+                  Check Out
+                </label>
                 <input
                   type="date"
                   id="checkOut"
@@ -187,7 +191,9 @@ export default ({ match }) => {
               </div>
 
               <div className={`control ${errors["guests"] ? "error" : ""}`}>
-                <label htmlFor="guests">Guests</label>
+                <label className="required" htmlFor="guests">
+                  Guests
+                </label>
                 <input type="number" id="guests" name="guests" placeholder="1" onChange={(e) => inputHandler(e)} />
                 {errors["guests"] && <span className="error-text">{errors["guests"]}</span>}
               </div>
@@ -196,7 +202,9 @@ export default ({ match }) => {
             <section>
               <h3>Personal Info</h3>
               <div className={`control ${errors["firstName"] ? "error" : ""}`}>
-                <label htmlFor="firstName">First Name</label>
+                <label className="required" htmlFor="firstName">
+                  First Name
+                </label>
                 <input
                   type="text"
                   id="firstName"
@@ -208,13 +216,17 @@ export default ({ match }) => {
               </div>
 
               <div className={`control ${errors["lastName"] ? "error" : ""}`}>
-                <label htmlFor="lastName">Last Name</label>
+                <label className="required" htmlFor="lastName">
+                  Last Name
+                </label>
                 <input type="text" id="lastName" name="lastName" placeholder="Doe" onChange={(e) => inputHandler(e)} />
                 {errors["lastName"] && <span className="error-text">{errors["lastName"]}</span>}
               </div>
 
               <div className={`control ${errors["email"] ? "error" : ""}`}>
-                <label htmlFor="email">Email</label>
+                <label className="required" htmlFor="email">
+                  Email
+                </label>
                 <input
                   type="email"
                   id="email"
@@ -229,7 +241,9 @@ export default ({ match }) => {
             <section>
               <h3>Payment</h3>
               <div className={`control ${errors["cardNumber"] ? "error" : ""}`}>
-                <label htmlFor="cardNumber">Card Number</label>
+                <label className="required" htmlFor="cardNumber">
+                  Card Number
+                </label>
                 <input
                   type="text"
                   id="cardNumber"
@@ -241,13 +255,17 @@ export default ({ match }) => {
               </div>
 
               <div className={`control ${errors["expiry"] ? "error" : ""}`}>
-                <label htmlFor="expiry">Expiry</label>
+                <label className="required" htmlFor="expiry">
+                  Expiry
+                </label>
                 <input type="expiry" id="expiry" name="expiry" placeholder="MM/YY" onChange={(e) => inputHandler(e)} />
                 {errors["expiry"] && <span className="error-text">{errors["expiry"]}</span>}
               </div>
 
               <div className={`control ${errors["cvc"] ? "error" : ""}`}>
-                <label htmlFor="cvc">CVC</label>
+                <label className="required" htmlFor="cvc">
+                  CVC
+                </label>
                 <input type="cvc" id="cvc" name="cvc" placeholder="123" onChange={(e) => inputHandler(e)} />
                 {errors["cvc"] && <span className="error-text">{errors["cvc"]}</span>}
               </div>

@@ -37,6 +37,9 @@ Since the HERE API does not retrieve hotel images, price and distance to city. S
 - A basic validation is added. Only checking for required fields and string formats. In a real world application, more validations will be needed and most probably will use a thrid-party validation library
 - When the user fill the fields, a confirmation pop up will be displayed
 
+**Note**
+In a real world application, there should be a logic to calculate the booking cost; which considers the number of nights, the number of guests and the base price. Also more validation will be needed, such as validate that the checkout date is after checkin date, etc.
+
 ### Layout
 
 - To follow the provided design which has a burger menu, I added a slider to have the navigation links when clicking on the burger icon

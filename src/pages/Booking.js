@@ -1,13 +1,15 @@
 import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Confirmation from "../components/booking/Confirmation";
-
-const HERE_API_KEY = process.env.REACT_APP_HERE_API_KEY;
+import Loader from "../components/shared/Loader";
+import { HERE_API_KEY } from "../utils/constants";
+import { cardRegex, cvcRegex, emailRegex, expiryRegex } from "../utils/form-validation";
 
 export default ({ match }) => {
   const { id } = match.params;
 
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [hotel, setHotel] = useState();
 
   const [values, setValues] = useState({
@@ -25,10 +27,22 @@ export default ({ match }) => {
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState();
 
-  const mandatoryFields = ["checkIn", "checkOut", "guests", "firstName", "lastName", "email", "cardNumber", "expiry", "cvc"];
+  const mandatoryFields = [
+    "checkIn",
+    "checkOut",
+    "guests",
+    "firstName",
+    "lastName",
+    "email",
+    "cardNumber",
+    "expiry",
+    "cvc",
+  ];
 
   useEffect(async () => {
     try {
+      if (!id) throw "ID is required";
+
       const url = `https://lookup.search.hereapi.com/v1/lookup?id=${id}&apiKey=${HERE_API_KEY}`;
       const aspiResult = await fetch(url, { headers: { "Accept-Language": "en-US" } });
 
@@ -36,20 +50,23 @@ export default ({ match }) => {
 
       const hotelData = await aspiResult.json();
 
+      //The HERE API only returns hotel name and location, so I am adding placeholders for the image, price, currency and distance from center.
+      //In real world app, will get the hotel fields from another API
       setHotel({
         title: hotelData.title,
         address: (Math.random() * (30 - 1) + 1).toFixed(1),
         price: Math.floor(Math.random() * (99 - 71)) + 70,
+        currency: "£",
         imageUrl: `https://source.unsplash.com/200x300/?room,bedroom,livingroom&random=${Math.random()}`,
       });
       setLoading(false);
     } catch (er) {
       setLoading(false);
       setHotel(null);
+      setError(true);
     }
   }, []);
 
-  // change event handler
   const inputHandler = (e) => {
     const { name, value } = e.target;
     setValues({
@@ -62,7 +79,7 @@ export default ({ match }) => {
     e.preventDefault();
 
     const isValid = validate();
-    if (!validate()) {
+    if (!isValid) {
       return;
     }
 
@@ -73,20 +90,47 @@ export default ({ match }) => {
   };
 
   const validate = () => {
-    const tempErrors = {};
+    setErrors({});
     let hasError;
 
+    //I am only doing very basic validation. In real world will use a library for validation. Here I am just showcasing basic validation.
     for (const key in values) {
       if (mandatoryFields.includes(key)) {
         if (!values[key]) {
-          tempErrors[key] = "This field is required.";
+          setErrors((currentErrors) => ({ ...currentErrors, [key]: "This field is required." }));
           hasError = true;
         }
       }
+
+      if (key == "email") {
+        hasError = isInvalidFormat(key, emailRegex, "Email is not valid") || hasError;
+      }
+
+      if (key == "cardNumber") {
+        hasError = isInvalidFormat(key, cardRegex, "Card number is not valid") || hasError;
+      }
+
+      if (key == "expiry") {
+        hasError = isInvalidFormat(key, expiryRegex, "Expiry is not valid") || hasError;
+      }
+
+      if (key == "cvc") {
+        hasError = isInvalidFormat(key, cvcRegex, "CVC not valid") || hasError;
+      }
     }
 
-    setErrors(tempErrors);
     return !hasError;
+  };
+
+  const isInvalidFormat = (key, regex, message) => {
+    if (!RegExp(regex).test(values[key])) {
+      setErrors((currentErrors) => ({
+        ...currentErrors,
+        [key]: currentErrors[key] ? currentErrors[key] : message,
+      }));
+
+      return true;
+    }
   };
 
   return (
@@ -103,7 +147,10 @@ export default ({ match }) => {
                   <h5>{hotel.address} from the city center</h5>
                 </div>
                 <div>
-                  <h3>£{hotel.price}</h3>
+                  <h3>
+                    {hotel.currency}
+                    {hotel.price}
+                  </h3>
                   <small>Designs may vary</small>
                 </div>
               </div>
@@ -113,17 +160,29 @@ export default ({ match }) => {
 
           <form noValidate onSubmit={(e) => submitHandler(e)}>
             <section>
-              <h3>Booking Info</h3>
+              <h3 data-testid="booking-info-label">Booking Info</h3>
 
               <div className={`control ${errors["checkIn"] ? "error" : ""}`}>
                 <label htmlFor="checkIn">Check In</label>
-                <input type="date" id="checkIn" name="checkIn" placeholder="Check In" onChange={(e) => inputHandler(e)} />
+                <input
+                  type="date"
+                  id="checkIn"
+                  name="checkIn"
+                  placeholder="Check In"
+                  onChange={(e) => inputHandler(e)}
+                />
                 {errors["checkIn"] && <span className="error-text">{errors["checkIn"]}</span>}
               </div>
 
               <div className={`control ${errors["checkOut"] ? "error" : ""}`}>
                 <label htmlFor="checkOut">Check Out</label>
-                <input type="date" id="checkOut" name="checkOut" placeholder="Checkout Out" onChange={(e) => inputHandler(e)} />
+                <input
+                  type="date"
+                  id="checkOut"
+                  name="checkOut"
+                  placeholder="Checkout Out"
+                  onChange={(e) => inputHandler(e)}
+                />
                 {errors["checkOut"] && <span className="error-text">{errors["checkOut"]}</span>}
               </div>
 
@@ -136,10 +195,15 @@ export default ({ match }) => {
 
             <section>
               <h3>Personal Info</h3>
-
               <div className={`control ${errors["firstName"] ? "error" : ""}`}>
                 <label htmlFor="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" placeholder="John" onChange={(e) => inputHandler(e)} />
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  placeholder="John"
+                  onChange={(e) => inputHandler(e)}
+                />
                 {errors["firstName"] && <span className="error-text">{errors["firstName"]}</span>}
               </div>
 
@@ -151,7 +215,13 @@ export default ({ match }) => {
 
               <div className={`control ${errors["email"] ? "error" : ""}`}>
                 <label htmlFor="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="john@example.com" onChange={(e) => inputHandler(e)} />
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="john@example.com"
+                  onChange={(e) => inputHandler(e)}
+                />
                 {errors["email"] && <span className="error-text">{errors["email"]}</span>}
               </div>
             </section>
@@ -160,7 +230,13 @@ export default ({ match }) => {
               <h3>Payment</h3>
               <div className={`control ${errors["cardNumber"] ? "error" : ""}`}>
                 <label htmlFor="cardNumber">Card Number</label>
-                <input type="text" id="cardNumber" name="cardNumber" placeholder="1111-2222-3333-4444" onChange={(e) => inputHandler(e)} />
+                <input
+                  type="text"
+                  id="cardNumber"
+                  name="cardNumber"
+                  placeholder="1234123412341234"
+                  onChange={(e) => inputHandler(e)}
+                />
                 {errors["cardNumber"] && <span className="error-text">{errors["cardNumber"]}</span>}
               </div>
 
@@ -184,10 +260,10 @@ export default ({ match }) => {
         </Fragment>
       )}
 
-      {!hotel && loading && <div>Loading...</div>}
+      {loading && <Loader />}
 
-      {!hotel && !loading && (
-        <div>
+      {error && (
+        <div data-testid="error">
           Something went wrong. Go back to <Link to="/">homepage</Link>.
         </div>
       )}

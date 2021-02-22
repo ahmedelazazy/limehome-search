@@ -4,7 +4,7 @@
   .Map {
     height: calc(100vh);
     width: 100%;
-
+    overflow: hidden;
     .MapMarker {
       border-radius: 100%;
       // box-shadow: 1px 1px 10px 0px rgba(50, 50, 50, 0.75);
@@ -13,6 +13,7 @@
 
       &.active {
         z-index: 99999;
+        position: relative;
       }
     }
   }
@@ -104,5 +105,14 @@
         }
       }
     }
+  }
+
+  .Loader {
+    background: transparent;
+  }
+
+  .error {
+    padding: 2rem 1rem;
+    font-size: 1.6rem;
   }
 }

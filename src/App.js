@@ -5,7 +5,8 @@ import Header from "./components/layout/Header";
 import About from "./pages/About";
 import Booking from "./pages/Booking";
 import Homepage from "./pages/Homepage";
-import "./styles/App.scss";
+import NotFound from "./pages/NotFound";
+import "./styles/main.scss";
 
 export default () => {
   return (
@@ -17,6 +18,7 @@ export default () => {
           <Route path="/" exact={true} component={Homepage} />
           <Route path="/about" component={About} />
           <Route path="/book/:id" component={Booking} />
+          <Route component={NotFound} />
         </Switch>
       </Router>
     </div>

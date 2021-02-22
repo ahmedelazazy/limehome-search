@@ -12,7 +12,10 @@ export default ({ hotel }) => {
             <h5>{hotel.address} from the city center</h5>
           </div>
           <div>
-            <h3>£{hotel.price}</h3>
+            <h3>
+              {hotel.currency}
+              {hotel.price}
+            </h3>
             <small>Designs may vary</small>
           </div>
         </div>

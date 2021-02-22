@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# Limehome Search
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple page which shows the nearby hotels to the current location on a map.
 
-## Available Scripts
+User has the option to make a dummy reservation to the selected hotel.
 
-In the project directory, you can run:
+The application is developed in **React** and SASS is used for styling.
 
-### `yarn start`
+## Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+https://limehome-search.netlify.app/
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Application Flow Explained
 
-### `yarn test`
+### Home Page
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- It shows a map centered at the current location
+- If the current location cannot be retrieved, the default location will be used. It is currently set to Berlin
+- It gets the nearby hotels from HERE API
+- The retrived hotels will be displayed on the map
+- Also they will be displayed in a slider
+- When the user select a hotel from the map, the slider will move to the selected hotel
+- When the user select a hotel from the slider, the map will move to the selected hotel
+- When the user move the map, it will load new hotels, at the new selected location and show them on the map and update the slider
+- Fetching new hotels is staled so that if the user keeps moving the map, only call the API when being idle
+- When user click on Booking, it will redirect to the Booking page
 
-### `yarn build`
+**Notes**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Since the HERE API does not retrieve hotel images, price and distance to city. So the app is showing placeholders for these fields. In real world application, the hotels list along with its fields will be fetched from another API and then showed on the map.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Booking
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- A basic form with the most common booking data fields
+- The page will try to load the given hotel from HERE API, so that the booking link is a stateless URL and can be shared
+- If the hotel cannot be retrieved, an error message will be displayed
+- A basic validation is added. Only checking for required fields and string formats. In a real world application, more validations will be needed and most probably will use a thrid-party validation library
+- When the user fill the fields, a confirmation pop up will be displayed
 
-### `yarn eject`
+### Layout
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- To follow the provided design which has a burger menu, I added a slider to have the navigation links when clicking on the burger icon
+- So there is a dummy About page just to have some links in the navigation menu
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### APIs
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- [HERE Discove API](https://developer.here.com/documentation/geocoding-search-api/dev_guide/topics/quick-start.html) is used to get the near by hotels
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- [HERE Lookup API](https://developer.here.com/documentation/geocoding-search-api/dev_guide/topics/endpoint-lookup-brief.html) is used to get the details of a selected hotel
 
-## Learn More
+### API Keys
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- HERE API key is required to be set in `.env`
+- Google Maps API Key is required to be set in `.env`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Used Third Party Packages
 
-### Code Splitting
+- [React](https://www.npmjs.com/package/react)
+- [React Router](https://www.npmjs.com/package/react-router-dom)
+- [SASS](https://www.npmjs.com/package/node-sass)
+- [Google Map React](https://www.npmjs.com/package/google-map-react)
+- [React Slick](https://www.npmjs.com/package/react-slick)
+- [Debounce](https://www.npmjs.com/package/debounce)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Getting Started
 
-### Analyzing the Bundle Size
+- Clone the repo
+- Copy `.env.example` to `.env`
+- Update the API keys values
+- Run `npm start`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Test
 
-### Making a Progressive Web App
+- Run `npm run test`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Deploy
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- run `npm run build`

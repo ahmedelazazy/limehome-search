@@ -1,6 +1,6 @@
-export default ({ open, setOpen }) => {
+export default ({open, setOpen}) => {
   return (
-    <button className={`Burger ${open ? "open" : ""}`} open={open} onClick={() => setOpen(!open)}>
+    <button className={`Burger ${open ? 'open' : ''}`} open={open} onClick={() => setOpen(!open)}>
       <div />
       <div />
     </button>

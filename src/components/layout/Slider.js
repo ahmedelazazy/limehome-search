@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import {Link} from 'react-router-dom';
 
-export default ({ open, setOpen }) => {
+export default ({open, setOpen}) => {
   return (
-    <div className={`Slider ${open ? "open" : ""}`} open={open}>
+    <div className={`Slider ${open ? 'open' : ''}`} open={open}>
       <div className="logo" />
       <nav>
         <ul>

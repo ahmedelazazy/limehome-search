@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react";
-import Slider from "react-slick";
+import {useEffect, useRef} from 'react';
+import Slider from 'react-slick';
 
-export default ({ children, onSlide, selectedIndex }) => {
+export default ({children, onSlide, selectedIndex}) => {
   const slider = useRef();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default ({ children, onSlide, selectedIndex }) => {
     slidesToScroll: 1,
     variableWidth: true,
 
-    afterChange: (index) => {
+    afterChange: index => {
       onSlide(index);
     },
   };

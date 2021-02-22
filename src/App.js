@@ -1,12 +1,12 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "../node_modules/slick-carousel/slick/slick-theme.css";
-import "../node_modules/slick-carousel/slick/slick.css";
-import Header from "./components/layout/Header";
-import About from "./pages/About";
-import Booking from "./pages/Booking";
-import Homepage from "./pages/Homepage";
-import NotFound from "./pages/NotFound";
-import "./styles/main.scss";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import '../node_modules/slick-carousel/slick/slick-theme.css';
+import '../node_modules/slick-carousel/slick/slick.css';
+import Header from './components/layout/Header';
+import About from './pages/About';
+import Booking from './pages/Booking';
+import Homepage from './pages/Homepage';
+import NotFound from './pages/NotFound';
+import './styles/main.scss';
 
 export default () => {
   return (

@@ -1,14 +1,14 @@
 // user.test.js
 
-import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
-import { BrowserRouter } from "react-router-dom";
-import Booking from "../pages/Booking";
+import React from 'react';
+import {render, unmountComponentAtNode} from 'react-dom';
+import {act} from 'react-dom/test-utils';
+import {BrowserRouter} from 'react-router-dom';
+import Booking from '../pages/Booking';
 
 let container = null;
 beforeEach(() => {
-  container = document.createElement("div");
+  container = document.createElement('div');
   document.body.appendChild(container);
 });
 
@@ -18,11 +18,11 @@ afterEach(() => {
   container = null;
 });
 
-it("renders booking data with valid id", async () => {
+it('renders booking data with valid id', async () => {
   const fakeBooking = {
-    title: "Berlin Hotel",
+    title: 'Berlin Hotel',
   };
-  jest.spyOn(global, "fetch").mockImplementation(() =>
+  jest.spyOn(global, 'fetch').mockImplementation(() =>
     Promise.resolve({
       json: () => Promise.resolve(fakeBooking),
       ok: true,
@@ -39,16 +39,18 @@ it("renders booking data with valid id", async () => {
     render(<Booking match={match} />, container);
   });
 
-  expect(container.querySelector('[data-testid="booking-info-label"]').textContent).toEqual("Booking Info");
+  expect(container.querySelector('[data-testid="booking-info-label"]').textContent).toEqual(
+    'Booking Info'
+  );
 
   global.fetch.mockRestore();
 });
 
-it("renders error with invalid booking id", async () => {
+it('renders error with invalid booking id', async () => {
   const fakeBooking = {
-    title: "Berlin Hotel",
+    title: 'Berlin Hotel',
   };
-  jest.spyOn(global, "fetch").mockImplementation(() =>
+  jest.spyOn(global, 'fetch').mockImplementation(() =>
     Promise.resolve({
       json: () => Promise.resolve(fakeBooking),
       ok: true,
@@ -73,8 +75,8 @@ it("renders error with invalid booking id", async () => {
   global.fetch.mockRestore();
 });
 
-it("renders error when API responds with not ok", async () => {
-  jest.spyOn(global, "fetch").mockImplementation(() =>
+it('renders error when API responds with not ok', async () => {
+  jest.spyOn(global, 'fetch').mockImplementation(() =>
     Promise.resolve({
       ok: false,
     })
@@ -100,8 +102,8 @@ it("renders error when API responds with not ok", async () => {
   global.fetch.mockRestore();
 });
 
-it("renders error when API responds with an error", async () => {
-  jest.spyOn(global, "fetch").mockImplementation(() => Promise.reject());
+it('renders error when API responds with an error', async () => {
+  jest.spyOn(global, 'fetch').mockImplementation(() => Promise.reject());
 
   const match = {
     params: {

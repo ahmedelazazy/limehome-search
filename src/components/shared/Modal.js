@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import {Link} from 'react-router-dom';
 
-export default ({ title, children, link }) => {
+export default ({title, children, link}) => {
   return (
     <div className="Modal">
       <div className="modal-container">

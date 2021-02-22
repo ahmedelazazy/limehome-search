@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import {Link} from 'react-router-dom';
 
-export default ({ hotel }) => {
+export default ({hotel}) => {
   return (
     <div className="HotelItem">
       <div className="cols flex">
-        <div className="col image-container" style={{ backgroundImage: `url("${hotel.imageUrl}")` }} />
+        <div
+          className="col image-container"
+          style={{backgroundImage: `url("${hotel.imageUrl}")`}}
+        />
 
         <div className="col flex">
           <div>

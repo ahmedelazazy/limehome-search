@@ -1,6 +1,6 @@
-import { useState } from "react";
-import Burger from "./Burger";
-import Slider from "./Slider";
+import {useState} from 'react';
+import Burger from './Burger';
+import Slider from './Slider';
 
 export default () => {
   const [open, setOpen] = useState(false);
